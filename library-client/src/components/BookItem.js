@@ -1,11 +1,13 @@
 import React from 'react';
 
-const AuthorItem = (props) => {
-    const {author} = props;
+const BookItem = (props) => {
+    const {book} = props;
     return (
         <tr>
-            <td>{author.full_name}</td>
-            <td>{author.email}</td>
+            <td>{book.title}</td>
+            <td>{book.author.full_name}</td>
+            <td>{book.description}</td>
+            <td>{book.price} $ </td>
             <td>
                 <button className="btn btn-primary">Edit</button>
                 <button className="btn btn-danger">Delete</button>
@@ -14,4 +16,4 @@ const AuthorItem = (props) => {
     )
 }
 
-export default AuthorItem;
+export default BookItem;

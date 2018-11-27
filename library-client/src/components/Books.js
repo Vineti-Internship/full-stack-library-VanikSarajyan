@@ -1,45 +1,43 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import AuthorItem from './AuthorItem';
+import BookItem from './BookItem';
 
-class Authors extends React.PureComponent {
+class Books extends React.PureComponent {
     constructor(props){
         super(props);
         this.state = {
-            authors: []
+            books: []
         }
     }
 
-    async componentDidMount(){
+    async componentDidMount() {
         try {
-            const response = await fetch('http://localhost:4000/authors');
-            const authors = await response.json();
-            this.setState({authors});
-
+            const response = await fetch("http://localhost:4000/books");
+            const books = await response.json();
+            this.setState({books})
         } catch(e){
             console.log(e);
         }
     }
-
     render(){
         return (
             <React.Fragment>
-                <h1>Authors</h1>
+                <h1>Books</h1>
                 <table className="table">
                     <thead>
-                        <tr>
-                            <th>Full Name</th>
-                            <th>Email</th>
-                        </tr>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                        <th>Price</th>
                     </thead>
                     <tbody>
-                        {this.state.authors.map((author, index) => {
+                        {this.state.books.map((book,index) => {
                             return (
-                                <AuthorItem 
+                                <BookItem 
                                     key={index}
-                                    author = {author}
+                                    book = {book}
                                 />
-                            );    
+                            )
                         })}
                     </tbody>
                 </table>
@@ -50,4 +48,4 @@ class Authors extends React.PureComponent {
     }
 }
 
-export default Authors;
+export default Books;
