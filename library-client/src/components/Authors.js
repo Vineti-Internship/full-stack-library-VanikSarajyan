@@ -43,7 +43,7 @@ class Authors extends React.PureComponent {
                         })}
                     </tbody>
                 </table>
-                <button className="btn btn-success">Add New Book</button> <br /> <br />
+                <Link to="/authors/new"><button className="btn btn-success">Add New Author</button></Link> <br /> <br />
                 <Link to="/">Home</Link>
             </React.Fragment>
         )
