@@ -1,8 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const Home = () => {
     return (
-        <h1>Home</h1>
+        <React.Fragment>
+            <Link to="/authors"><h1> Authors </h1></Link>
+            <Link to="/"><h1> Books </h1></Link>
+        </React.Fragment>
     )
 }
 
