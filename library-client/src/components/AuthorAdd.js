@@ -19,6 +19,7 @@ class AuthorAdd extends React.PureComponent {
                     "Content-Type": "application/json",
                 }
             });
+            
         } catch(e) {
             console.log(e);
         }

@@ -10,7 +10,7 @@ class Authors extends React.PureComponent {
         }
     }
 
-    async componentDidMount(){
+    getAuthors = async () => {
         try {
             const response = await fetch('http://localhost:4000/authors');
             const authors = await response.json();
@@ -21,13 +21,30 @@ class Authors extends React.PureComponent {
         }
     }
 
+    componentDidMount(){
+        setTimeout(this.getAuthors, 1200);
+    }
+
+    handleDelete = async (id) => {
+        try{
+            await fetch(`http://localhost:4000/authors/${id}`, {
+                method: "DELETE",
+            });
+            this.getAuthors();
+        } catch(e) {
+            console.log(e);
+        }
+    }
+
     render(){
         return (
             <React.Fragment>
                 <h1>Authors</h1>
+                <p>{this.state.message}</p>
                 <table className="table">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th>Full Name</th>
                             <th>Email</th>
                         </tr>
@@ -38,6 +55,7 @@ class Authors extends React.PureComponent {
                                 <AuthorItem 
                                     key={index}
                                     author = {author}
+                                    handleDelete = {this.handleDelete}
                                 />
                             );    
                         })}

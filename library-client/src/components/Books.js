@@ -25,10 +25,12 @@ class Books extends React.PureComponent {
                 <h1>Books</h1>
                 <table className="table">
                     <thead>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Description</th>
-                        <th>Price</th>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {this.state.books.map((book,index) => {
