@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const AuthorItem = (props) => {
     const {author} = props;
@@ -8,7 +9,9 @@ const AuthorItem = (props) => {
             <td>{author.full_name}</td>
             <td>{author.email}</td>
             <td>
-                <button className="btn btn-primary">Edit</button>
+                <Link to={`/authors/edit/${author.id}`} ><button 
+                    className="btn btn-primary"
+                >Edit</button></Link>
                 <button 
                     className="btn btn-danger"
                     onClick={() => props.handleDelete(author.id)}

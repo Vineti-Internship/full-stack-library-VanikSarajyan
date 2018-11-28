@@ -5,6 +5,7 @@ import Error from './components/Error';
 import Authors from './components/Authors';
 import Books from './components/Books';
 import AuthorAdd from './components/AuthorAdd';
+import AuthorEdit from './components/AuthorEdit';
 import './App.css';
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
               <Route path="/" exact component={Home}/>
               <Route path="/authors" exact component={Authors}/>
               <Route path="/authors/new" exact component={AuthorAdd} />
+              <Route path="/authors/edit/:id" exact component={AuthorEdit} />
               <Route path="/books" exact component={Books}/>
               <Route component={Error} />
             </Switch>

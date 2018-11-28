@@ -9,6 +9,22 @@ class AuthorFrom extends React.PureComponent {
             email:""
         }
     }
+    componentDidMount(){
+        if(this.props.handleEdit){
+            this.getCurrentAuthor()
+        }
+    }
+
+    getCurrentAuthor = async () => {
+        try {
+            const response = await fetch(`http://localhost:4000/authors/${this.props.authorId}`);
+            const author = await response.json();
+            const {full_name : fullName, email} = author;
+            this.setState({fullName, email});
+        } catch(e){
+            console.log(e);
+        }
+    }
 
     handleChange = (event) => {
         const {target} = event;
@@ -21,7 +37,10 @@ class AuthorFrom extends React.PureComponent {
     handleClick = () => {
         if(this.props.handleAdd){
             this.props.handleAdd(this.state.fullName, this.state.email);
+        } else {
+            this.props.handleEdit(this.props.authorId,this.state.fullName, this.state.email)
         }
+
     }
 
     render(){
@@ -35,7 +54,7 @@ class AuthorFrom extends React.PureComponent {
                     <label>Email</label>
                     <input name="email" onChange={this.handleChange} value={this.state.email} type="eamil" className="form-control"/>
                 </div>
-                <Link to='/authors'><button className="btn btn-success" onClick={this.handleClick}>Add</button></Link>
+                <Link to='/authors'><button className="btn btn-success" onClick={this.handleClick}>Submit</button></Link>
                 <Link to="/authors"><button className="btn btn-default">Cancel</button></Link>
             </div>
         )
