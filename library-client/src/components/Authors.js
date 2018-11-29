@@ -1,12 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import AuthorItem from './AuthorItem';
+import Loading from './Loading';
 
 class Authors extends React.PureComponent {
     constructor(props){
         super(props);
         this.state = {
-            authors: []
+            authors: [],
+            isLoading: true
         }
     }
 
@@ -14,7 +16,7 @@ class Authors extends React.PureComponent {
         try {
             const response = await fetch('http://localhost:4000/authors');
             const authors = await response.json();
-            this.setState({authors});
+            this.setState({authors, isLoading: false});
 
         } catch(e){
             console.log(e);
@@ -22,7 +24,7 @@ class Authors extends React.PureComponent {
     }
 
     componentDidMount(){
-        setTimeout(this.getAuthors, 1200);
+        setTimeout(this.getAuthors, 100);
     }
 
     handleDelete = async (id) => {
@@ -41,27 +43,33 @@ class Authors extends React.PureComponent {
             <React.Fragment>
                 <h1>Authors</h1>
                 <p>{this.state.message}</p>
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Full Name</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.authors.map((author, index) => {
-                            return (
-                                <AuthorItem 
-                                    key={index}
-                                    author = {author}
-                                    handleDelete = {this.handleDelete}
-                                />
-                            );    
-                        })}
-                    </tbody>
-                </table>
-                <Link to="/authors/new"><button className="btn btn-success">Add New Author</button></Link> <br /> <br />
+                {this.state.isLoading ?  <Loading /> : 
+                <React.Fragment>
+                    <table className="table">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.authors.map((author, index) => {
+                                return (
+                                    <AuthorItem 
+                                        key={index}
+                                        author = {author}
+                                        handleDelete = {this.handleDelete}
+                                    />
+                                );    
+                            })}
+                        </tbody>
+                    </table>
+                    <Link to="/authors/new"><button className="btn btn-success">Add New Author</button></Link>
+                </React.Fragment>
+                }
+                 <br /> <br />
                 <Link to="/">Home</Link>
             </React.Fragment>
         )

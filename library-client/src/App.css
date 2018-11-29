@@ -2,6 +2,18 @@
   text-align: center;
 }
 
+.loading {
+  margin: 100px auto;
+}
+
 th {
   text-align: center;
+}
+
+.centre {
+  margin: 0 auto;
+}
+
+button {
+  margin: 5px;
 }

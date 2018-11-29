@@ -24,12 +24,13 @@ class Books extends React.PureComponent {
             <React.Fragment>
                 <h1>Books</h1>
                 <table className="table">
-                    <thead>
+                    <thead className="thead-dark">
                         <tr>
                             <th>Title</th>
                             <th>Author</th>
                             <th>Description</th>
                             <th>Price</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
