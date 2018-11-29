@@ -5,12 +5,12 @@ const BookItem = (props) => {
     return (
         <tr>
             <td>{book.title}</td>
-            <td>{book.author.full_name}</td>
+            <td>{book.author ? book.author.full_name: "Author has been deleted"}</td>
             <td>{book.description}</td>
             <td>{book.price} $ </td>
             <td>
                 <button className="btn btn-primary">Edit</button>
-                <button className="btn btn-danger">Delete</button>
+                <button onClick={() => props.handleDelete(book.id)} className="btn btn-danger">Delete</button>
             </td>
         </tr>
     )

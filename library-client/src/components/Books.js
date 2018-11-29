@@ -13,7 +13,7 @@ class Books extends React.PureComponent {
     }
 
     componentDidMount() {
-        setTimeout(this.getBooks, 100);
+        setTimeout(this.getBooks, 300);
     }
 
     getBooks = async () => {
@@ -25,6 +25,18 @@ class Books extends React.PureComponent {
             console.log(e);
         }
     }
+
+    deleteBook = async (id) => {
+        try {
+            await fetch(`http://localhost:4000/books/${id}`, {
+                method: "DELETE"
+            });
+            this.getBooks();
+        } catch(e){
+            console.log(e);
+        }
+    }
+
     render(){
         return (
             <React.Fragment>
@@ -46,6 +58,7 @@ class Books extends React.PureComponent {
                                     <BookItem 
                                         key={index}
                                         book = {book}
+                                        handleDelete={this.deleteBook}
                                     />
                                 )
                             })}
