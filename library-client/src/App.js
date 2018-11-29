@@ -3,9 +3,10 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Home from './components/Home';
 import Error from './components/Error';
 import Authors from './components/Authors';
-import Books from './components/Books';
 import AuthorAdd from './components/AuthorAdd';
 import AuthorEdit from './components/AuthorEdit';
+import Books from './components/Books';
+import BookAdd from './components/BookAdd';
 import './App.css';
 
 class App extends Component {
@@ -20,6 +21,7 @@ class App extends Component {
               <Route path="/authors/new" exact component={AuthorAdd} />
               <Route path="/authors/edit/:id" exact component={AuthorEdit} />
               <Route path="/books" exact component={Books}/>
+              <Route path="/books/new" exact component={BookAdd} />
               <Route component={Error} />
             </Switch>
           </React.Fragment>

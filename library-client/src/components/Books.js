@@ -1,20 +1,26 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import BookItem from './BookItem';
+import Loading from './Loading';
 
 class Books extends React.PureComponent {
     constructor(props){
         super(props);
         this.state = {
-            books: []
+            books: [],
+            isLoading: true
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        setTimeout(this.getBooks, 100);
+    }
+
+    getBooks = async () => {
         try {
             const response = await fetch("http://localhost:4000/books");
             const books = await response.json();
-            this.setState({books})
+            this.setState({books, isLoading: false})
         } catch(e){
             console.log(e);
         }
@@ -23,29 +29,32 @@ class Books extends React.PureComponent {
         return (
             <React.Fragment>
                 <h1>Books</h1>
-                <table className="table">
-                    <thead className="thead-dark">
-                        <tr>
-                            <th>Title</th>
-                            <th>Author</th>
-                            <th>Description</th>
-                            <th>Price</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {this.state.books.map((book,index) => {
-                            return (
-                                <BookItem 
-                                    key={index}
-                                    book = {book}
-                                />
-                            )
-                        })}
-                    </tbody>
-                </table>
-                <button className="btn btn-success">Add New Book</button> <br /> <br />
-                <Link to="/">Home</Link>
+                {this.state.isLoading ? <Loading /> :<React.Fragment>
+                    <table className="table">
+                        <thead className="thead-dark">
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.state.books.map((book,index) => {
+                                return (
+                                    <BookItem 
+                                        key={index}
+                                        book = {book}
+                                    />
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                    <Link to="/books/new"><button className="btn btn-success">Add New Book</button></Link>
+            </React.Fragment>}
+            <br /> <br />
+            <Link to="/">Home</Link>
             </React.Fragment>
         )
     }
