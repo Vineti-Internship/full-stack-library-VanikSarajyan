@@ -15,7 +15,20 @@ class BookForm extends React.Component {
     }
     componentDidMount(){
         if(this.props.handleAdd){
-            this.setState({isLoading: false})
+            this.setState({isLoading: false});
+        } else {
+            this.getCurrentBook();
+        }
+    }
+
+    getCurrentBook = async () => {
+        try {
+            const response = await fetch(`http://localhost:4000/books/${this.props.bookId}`);
+            const book = await response.json();
+            const {title, author, price, description} = book;
+            this.setState({title, authorId: author.id, price, description, isLoading: false });
+        } catch(e){
+            console.log(e);
         }
     }
     
@@ -28,10 +41,12 @@ class BookForm extends React.Component {
     }
 
     handleClick = () => {
+        const {title, price, description, authorId} = this.state;
         if(this.props.handleAdd){
-            const {title, price, description, authorId} = this.state;
             this.props.handleAdd(title, price, description, authorId);
-        } 
+        } else {
+            this.props.handleEdit(this.props.bookId, title, price, description, authorId);
+        }
 
     }
 

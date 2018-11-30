@@ -13,7 +13,7 @@ class Books extends React.PureComponent {
     }
 
     componentDidMount() {
-        setTimeout(this.getBooks, 300);
+        setTimeout(this.getBooks, 400);
     }
 
     getBooks = async () => {
