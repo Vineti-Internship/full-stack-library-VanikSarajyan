@@ -42,7 +42,6 @@ class Authors extends React.PureComponent {
         return (
             <React.Fragment>
                 <h1>Authors</h1>
-                <p>{this.state.message}</p>
                 {this.state.isLoading ?  <Loading /> : 
                 <React.Fragment>
                     <table className="table">
