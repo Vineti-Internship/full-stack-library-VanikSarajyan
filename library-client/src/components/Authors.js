@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import AuthorItem from './AuthorItem';
+import {ThemeContext} from '../ThemeContext';
 import Loading from './Loading';
 
 class Authors extends React.PureComponent {
@@ -40,37 +41,46 @@ class Authors extends React.PureComponent {
 
     render(){
         return (
-            <React.Fragment>
-                <h1>Authors</h1>
-                {this.state.isLoading ?  <Loading /> : 
-                <React.Fragment>
-                    <table className="table">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>#</th>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.authors.map((author, index) => {
-                                return (
-                                    <AuthorItem 
-                                        key={index}
-                                        author = {author}
-                                        handleDelete = {this.handleDelete}
-                                    />
-                                );    
-                            })}
-                        </tbody>
-                    </table>
-                    <Link to="/authors/new"><button className="btn btn-success">Add New Author</button></Link>
-                </React.Fragment>
-                }
-                 <br /> <br />
-                <Link to="/">Home</Link>
-            </React.Fragment>
+            <ThemeContext.Consumer>
+               {({theme}) => (
+                   <React.Fragment>
+                        <h1>Authors</h1>
+                        {this.state.isLoading ?  <Loading /> : 
+                        <React.Fragment>
+                            <table className="table">
+                                <thead className="thead-dark">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.authors.map((author, index) => {
+                                        return (
+                                            <AuthorItem 
+                                                key={index}
+                                                author = {author}
+                                                handleDelete = {this.handleDelete}
+                                            />
+                                        );    
+                                    })}
+                                </tbody>
+                            </table>
+                            <Link to="/authors/new">
+                                <button 
+                                    style={{backgroundColor: theme.addButton, borderColor: "white"}} 
+                                    className="btn btn-success">
+                                    Add New Author
+                                </button>
+                            </Link>
+                        </React.Fragment>}
+                        <br /> <br />
+                        <Link to="/">Home</Link>
+                    </React.Fragment>
+                )}
+            </ThemeContext.Consumer>
         )
     }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import BookItem from './BookItem';
 import Loading from './Loading';
+import {ThemeContext} from '../ThemeContext';
 
 class Books extends React.PureComponent {
     constructor(props){
@@ -39,36 +40,46 @@ class Books extends React.PureComponent {
 
     render(){
         return (
-            <React.Fragment>
-                <h1>Books</h1>
-                {this.state.isLoading ? <Loading /> :<React.Fragment>
-                    <table className="table">
-                        <thead className="thead-dark">
-                            <tr>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Description</th>
-                                <th>Price</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.state.books.map((book,index) => {
-                                return (
-                                    <BookItem 
-                                        key={index}
-                                        book = {book}
-                                        handleDelete={this.deleteBook}
-                                    />
-                                )
-                            })}
-                        </tbody>
-                    </table>
-                    <Link to="/books/new"><button className="btn btn-success">Add New Book</button></Link>
-            </React.Fragment>}
-            <br /> <br />
-            <Link to="/">Home</Link>
-            </React.Fragment>
+            <ThemeContext.Consumer>
+                {({theme}) => (
+                    <React.Fragment>
+                        <h1>Books</h1>
+                        {this.state.isLoading ? <Loading /> :<React.Fragment>
+                            <table className="table">
+                                <thead className="thead-dark">
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Author</th>
+                                        <th>Description</th>
+                                        <th>Price</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.books.map((book,index) => {
+                                        return (
+                                            <BookItem 
+                                                key={index}
+                                                book = {book}
+                                                handleDelete={this.deleteBook}
+                                            />
+                                        )
+                                    })}
+                                </tbody>
+                            </table>
+                            <Link to="/books/new">
+                                <button 
+                                    style={{backgroundColor: theme.addButton, borderColor: "white"}} 
+                                    className="btn btn-success">
+                                    Add New Book
+                                </button>
+                            </Link>
+                    </React.Fragment>}
+                    <br /> <br />
+                    <Link to="/">Home</Link>
+                    </React.Fragment>
+                )}
+            </ThemeContext.Consumer>
         )
     }
 }

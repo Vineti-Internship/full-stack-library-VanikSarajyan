@@ -8,14 +8,29 @@ import AuthorEdit from './components/AuthorEdit';
 import Books from './components/Books';
 import BookAdd from './components/BookAdd';
 import BookEdit from './components/BookEdit';
+import {ThemeContext, themes} from './ThemeContext';
 import './App.css';
 
 class App extends Component {
+  state = {
+    theme: themes.light,
+    thoggleTheme: this.toggleTheme
+  };
+
+  toggleTheme = () => {
+    this.setState(state => ({
+      theme:
+        state.theme === themes.light
+          ? themes.dark
+          : themes.light
+    }));
+  }
   render() {
     return (
       <div className="App">
         <BrowserRouter>
-          <React.Fragment>
+          <ThemeContext.Provider value={this.state}>
+          <button className="context btn btn-default" onClick={this.toggleTheme}>Change Theme</button>
             <Switch>
               <Route path="/" exact component={Home}/>
               <Route path="/authors" exact component={Authors}/>
@@ -26,7 +41,7 @@ class App extends Component {
               <Route path="/books/edit/:id" exact component={BookEdit}/>
               <Route component={Error} />
             </Switch>
-          </React.Fragment>
+          </ThemeContext.Provider>
         </BrowserRouter>
       </div>
     );

@@ -17,3 +17,9 @@ th {
 button {
   margin: 5px;
 }
+
+.context {
+  position: absolute;
+  left: 20px;
+  font-size: 12px;
+}
