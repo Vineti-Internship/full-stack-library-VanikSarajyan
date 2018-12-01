@@ -25,7 +25,7 @@ class Authors extends React.PureComponent {
     }
 
     componentDidMount(){
-        setTimeout(this.getAuthors, 400);
+        setTimeout(this.getAuthors, 800);
     }
 
     handleDelete = async (id) => {

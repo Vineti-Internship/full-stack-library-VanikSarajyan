@@ -20,6 +20,12 @@ button {
 
 .context {
   position: absolute;
-  left: 20px;
-  font-size: 12px;
+  left: 5px;
+  font-size: 14px;
+}
+
+.search {
+  position: absolute;
+  font-weight: 600;
+  left: 10px;
 }

@@ -10,7 +10,6 @@ class BookAdd extends React.PureComponent {
             description,
             author_id: authorId
         }
-        console.log(JSON.stringify({book}));
         try{
             await fetch("http://localhost:4000/books", {
                 method: "POST",

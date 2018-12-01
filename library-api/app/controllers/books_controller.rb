@@ -1,6 +1,12 @@
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :update, :destroy]
 
+
+  def search
+    search_results = Book.search(params[:input_title])
+    render json: search_results
+  end
+
   # GET /books
   def index
     @books = Book.all

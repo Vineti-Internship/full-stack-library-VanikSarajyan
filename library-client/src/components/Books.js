@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import BookItem from './BookItem';
+import BookSearch from './BookSearch';
 import Loading from './Loading';
 import {ThemeContext} from '../ThemeContext';
 
@@ -14,7 +15,7 @@ class Books extends React.PureComponent {
     }
 
     componentDidMount() {
-        setTimeout(this.getBooks, 400);
+        setTimeout(this.getBooks, 800);
     }
 
     getBooks = async () => {
@@ -44,6 +45,9 @@ class Books extends React.PureComponent {
                 {({theme}) => (
                     <React.Fragment>
                         <h1>Books</h1>
+                        <BookSearch 
+                            deleteBook={this.deleteBook}
+                        />
                         {this.state.isLoading ? <Loading /> :<React.Fragment>
                             <table className="table">
                                 <thead className="thead-dark">
